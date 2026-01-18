@@ -2,7 +2,7 @@
 
 ## 📖 Overview
 This project demonstrates how a **DevOps engineer** can automate configuration management tasks using Python.  
-It reads a configuration file (`.ini` format), extracts key‑value pairs, saves them as JSON in a database, and exposes a REST API to fetch the stored configuration.
+It reads a configuration file (`.ini` format), extracts key‑value pairs, saves them as JSON in a SQLite database, and exposes a REST API to fetch the stored configuration.
 
 This ensures **consistency, automation, and easy access** to configuration data.
 
@@ -14,6 +14,13 @@ This ensures **consistency, automation, and easy access** to configuration data.
 - ✅ Saves parsed data as JSON into a SQLite database  
 - ✅ Provides a REST API (`GET /get_config`) using Flask  
 - ✅ Handles errors gracefully (missing file, DB issues, etc.)  
+
+---
+
+## 🔧 Prerequisites
+- Python 3.8+ installed on your system  
+- pip package manager  
+- (Optional) Virtual environment for clean setup  
 
 ---
 
@@ -46,34 +53,37 @@ Store in Database → Saves extracted data as JSON in SQLite.
 
 Expose API → Flask provides a GET endpoint to fetch the latest configuration.
 
-📦 Requirements
-Python 3.x
+🚀 Setup Instructions
+Clone the repository:
 
+bash
+git clone https://github.com/kumar-DevOps/Python-programming.git
+cd Python-programming
+git checkout Task3
+Create a virtual environment (recommended):
+
+bash
+python -m venv venv
+source venv/bin/activate   # On Linux/Mac
+venv\Scripts\activate      # On Windows
 Install dependencies:
 
 bash
 pip install flask
-(configparser, json, and sqlite3 are built into Python.)
-
-▶️ Usage
-Place your configuration file as config.ini in the project folder.
-
-Run the script:
+Run the parser:
 
 bash
 python config_parser.py
-The script will:
+Access the API:
 
-Parse the configuration file
+Browser: http://127.0.0.1:5000/get_config
 
-Save JSON data into config_data.db
-
-Start a Flask server
-
-Access the API in your browser or via curl:
+Curl:
 
 bash
-http://127.0.0.1:5000/get_config
+curl http://127.0.0.1:5000/get_config
+Postman: Create a GET request to the same URL.
+
 📊 Example Output
 Console
 Code
@@ -93,6 +103,17 @@ json
     "port": "8080"
   }
 }
+🗄 Database
+The script creates a SQLite database file named config_data.db.
+
+Each run inserts the latest configuration JSON.
+
+You can inspect it using:
+
+bash
+sqlite3 config_data.db
+.tables
+SELECT * FROM config_data;
 🛡 Error Handling
 File not found → Prints warning and skips parsing.
 
@@ -101,10 +122,3 @@ Empty config file → Raises error message.
 Database issues → Displays error without crashing.
 
 API errors → Returns JSON error response.
-
-🚀 Extensions (Optional)
-Add POST endpoint to update configuration dynamically.
-
-Integrate with Ansible/Puppet/Chef for enterprise config management.
-
-Add logging to track changes over time.
