@@ -20,3 +20,12 @@ Useful for **DevOps engineers** to track server health and performance.
 Install `psutil`:
 ```bash
 pip install psutil
+
+Example Output
+Monitoring CPU usage... Press Ctrl+C to stop.
+CPU usage: 25%
+CPU usage: 30%
+Alert! CPU usage exceeds threshold: 85%
+Alert! CPU usage exceeds threshold: 90%
+CPU usage: 45%
+
